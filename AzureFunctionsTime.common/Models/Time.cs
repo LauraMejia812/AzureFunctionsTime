@@ -6,7 +6,6 @@ namespace AzureFunctionsTime.common.Models
     {
         public int EmployeeId { get; set; }
         public DateTime EntryDate { get; set; }
-        public DateTime DepartureDate { get; set; }
         public int Type { get; set; }
         public bool Consolidated { get; set; }
     }
