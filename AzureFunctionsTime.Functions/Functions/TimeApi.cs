@@ -80,6 +80,76 @@ namespace AzureFunctionsTime.Functions.Functions
                 });
             }
 
+        
+        [FunctionName(nameof(UpdateTime))]
+        public static async Task<IActionResult> UpdateTime(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "put", Route = "time/{id}")] HttpRequest req,
+            [Table("time", Connection = "AzureWebJobsStorage")] CloudTable timeTable,
+            string id, 
+            ILogger log)
+        {
+            log.LogInformation($"Update for time: {id}, received.");
+
+            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+            Time time = JsonConvert.DeserializeObject<Time>(requestBody);
+
+            //Validate time by Id
+
+            TableOperation findOperation = TableOperation.Retrieve<TimeEntity>("TIME", id);  
+            TableResult findResult = await timeTable.ExecuteAsync(findOperation);
+
+            if (findResult.Result == null)
+            {
+                return new BadRequestObjectResult(new Response
+                {
+                    IsSuccess = false,
+                    Message = "Time not found."
+                });
+            }
+
+            //Update time
+
+            TimeEntity timeEntity = (TimeEntity)findResult.Result;
+            timeEntity.Consolidated = time.Consolidated;
+            if (time.Type != 0 && time.Type != 1)
+            {
+                return new BadRequestObjectResult(new Response
+                {
+                    IsSuccess = false,
+                    Message = "to record the time,Type can only be 0 or 1."
+                });
+            }
+
+                        
+            if (time.Type == timeEntity.Type)
+            {
+                return new BadRequestObjectResult(new Response
+                {
+                    IsSuccess = false,
+                    Message = "to update the time you must enter a different value in the type."
+                });
+                
+            }
+            else   
+            {
+                timeEntity.Type = time.Type;
+            }
+
+
+            TableOperation addOperation = TableOperation.Replace(timeEntity);
+            await timeTable.ExecuteAsync(addOperation);
+
+            string message = $"Time: {id}, update in table.";
+            log.LogInformation(message);
+
+            return new OkObjectResult(new Response
+            {
+                IsSuccess = true,
+                Message = message,
+                Result = timeEntity
+            });
         }
+
     }
+}
 
