@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31605.320
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureFunctionsTime.common", "AzureFunctionsTime.common\AzureFunctionsTime.common.csproj", "{1AC282E1-84A5-496B-B729-5CD87D6CC310}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureFunctionsTime.common", "AzureFunctionsTime.common\AzureFunctionsTime.common.csproj", "{1AC282E1-84A5-496B-B729-5CD87D6CC310}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureFunctionsTime.Functions", "AzureFunctionsTime.Functions\AzureFunctionsTime.Functions.csproj", "{F06C3C68-BFDD-45DA-80C1-A1AC91A1FAA8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureFunctionsTime.Functions", "AzureFunctionsTime.Functions\AzureFunctionsTime.Functions.csproj", "{F06C3C68-BFDD-45DA-80C1-A1AC91A1FAA8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureFunctionsTime.Tests", "AzureFunctionsTime.Tests\AzureFunctionsTime.Tests.csproj", "{08D24070-87BA-439D-A3F4-9E5033151C83}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureFunctionsTime.Tests", "AzureFunctionsTime.Tests\AzureFunctionsTime.Tests.csproj", "{08D24070-87BA-439D-A3F4-9E5033151C83}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

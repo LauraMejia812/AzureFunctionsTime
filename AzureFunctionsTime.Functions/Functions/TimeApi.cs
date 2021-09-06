@@ -110,33 +110,21 @@ namespace AzureFunctionsTime.Functions.Functions
             //Update time
 
             TimeEntity timeEntity = (TimeEntity)findResult.Result;
-            timeEntity.Consolidated = time.Consolidated;
-            if (time.Type != 0 && time.Type != 1)
+            if (!time.Consolidated)
             {
                 return new BadRequestObjectResult(new Response
                 {
                     IsSuccess = false,
-                    Message = "to record the time,Type can only be 0 or 1."
+                    Message = "Already the consolidated is false enter true."
                 });
-            }
 
-                        
-            if (time.Type == timeEntity.Type)
+            }
+            else
             {
-                return new BadRequestObjectResult(new Response
-                {
-                    IsSuccess = false,
-                    Message = "to update the time you must enter a different value in the type."
-                });
-                
-            }
-            else   
-            {
-                timeEntity.Type = time.Type;
+                timeEntity.Consolidated = time.Consolidated;
             }
 
-
-            TableOperation addOperation = TableOperation.Replace(timeEntity);
+           TableOperation addOperation = TableOperation.Replace(timeEntity);
             await timeTable.ExecuteAsync(addOperation);
 
             string message = $"Time: {id}, update in table.";
