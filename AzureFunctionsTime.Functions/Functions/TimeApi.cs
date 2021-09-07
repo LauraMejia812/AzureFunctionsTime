@@ -110,6 +110,7 @@ namespace AzureFunctionsTime.Functions.Functions
             //Update time
 
             TimeEntity timeEntity = (TimeEntity)findResult.Result;
+            timeEntity.Consolidated = time.Consolidated;
             if (!time.Consolidated)
             {
                 return new BadRequestObjectResult(new Response

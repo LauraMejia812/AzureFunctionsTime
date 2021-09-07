@@ -1,10 +1,9 @@
-using System;
-using System.Threading.Tasks;
 using AzureFunctionsTime.Functions.Entities;
 using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Host;
 using Microsoft.Extensions.Logging;
 using Microsoft.WindowsAzure.Storage.Table;
+using System;
+using System.Threading.Tasks;
 
 namespace AzureFunctionsTime.Functions.Functions
 {
@@ -12,7 +11,7 @@ namespace AzureFunctionsTime.Functions.Functions
     {
         [FunctionName("ScheduledFunction")]
         public static async Task Run(
-            [TimerTrigger("0 */2 * * * *")]TimerInfo myTimer,
+            [TimerTrigger("0 */2 * * * *")] TimerInfo myTimer,
             [Table("time", Connection = "AzureWebJobsStorage")] CloudTable timeTable,
             ILogger log)
         {
@@ -21,7 +20,7 @@ namespace AzureFunctionsTime.Functions.Functions
             string filter = TableQuery.GenerateFilterConditionForBool("Consolidated", QueryComparisons.Equal, true);
             TableQuery<TimeEntity> query = new TableQuery<TimeEntity>().Where(filter);
             TableQuerySegment<TimeEntity> completedTimes = await timeTable.ExecuteQuerySegmentedAsync(query, null);
-            int deleted = 0;   
+            int deleted = 0;
             foreach (TimeEntity completedTime in completedTimes)
             {
                 await timeTable.ExecuteAsync(TableOperation.Delete(completedTime));

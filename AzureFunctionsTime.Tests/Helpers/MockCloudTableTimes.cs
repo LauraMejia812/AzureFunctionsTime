@@ -2,8 +2,6 @@
 using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Table;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace AzureFunctionsTime.Tests.Helpers
@@ -26,7 +24,7 @@ namespace AzureFunctionsTime.Tests.Helpers
         {
             return await Task.FromResult(new TableResult
             {
-                HttpStatusCode= 200,
+                HttpStatusCode = 200,
                 Result = TestFactory.GetTimeEntity()
             });
         }
